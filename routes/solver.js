@@ -58,11 +58,12 @@ function getValue(index, result_array) {
             }
 
         }
-        result_array[index] = 0;
-        return false;
     }
+    result_array[index] = 0;
+    return false;
 
-    return result_array;
+
+    //  return result_array;
 
 }
 
@@ -73,7 +74,7 @@ function execute(puzzle) {
     }
 
     const result = getValue(0, puzzle);
-    console.log(puzzle);
+    console.log(result);
 }
 
 
