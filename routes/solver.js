@@ -35,7 +35,7 @@ function getValue(index, result_array) {
     const arrLength = result_array.length;
 
     if (index >= arrLength) {
-        return false;
+        return true;
     }
 
     // If that index already occupies a value then no need to find number for that index
@@ -48,14 +48,15 @@ function getValue(index, result_array) {
     for (var i = 0; i < 9; i++) {
         // get the row number (i.e) for every for loop, row will be same. Math.floor will maintian it same
         // example: 0 / 9; 1 / 9; 2 / 9
-        const rowNumber = (Math.floor(index / 9));
+        const rowNumber = Math.floor(index / 9);
 
         // get the column number (i.e) for every for loop, column will be incremented by 1
         // example: 0 % 9; 1 % 9
-        const columnNumber = (Math.floor(index % 9));
+        const columnNumber = index % 9;
 
         if (checkvalue(i, rowNumber, columnNumber, result_array)) {
             result_array[index] = i;
+            console.log(getValue(index + 1, result_array).success);
             if (getValue(index + 1, result_array).success) {
                 return { success: true, result: result_array };
             }
