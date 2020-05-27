@@ -7,7 +7,7 @@ function checkvalue(number, row, column, result_array) {
         // j = 2 row = 0; column = 3
         // j = 3 row = 0; column = 4
 
-        var get_index = ((Math.floor(row / 3) * 3) + Math.floor(j / 3) * 9) + (Math.floor(column / 3) * 3 + (j / 3));
+        var get_index = ((Math.floor(row / 3) * 3) + Math.floor(j / 3) * 9) + (Math.floor(column / 3) * 3 + (j % 3));
 
         // check if this value fits here
         // check it shouldn't be in row >>>  example: // 0 * 9 + 1  // 0 * 9 + 2
@@ -18,8 +18,9 @@ function checkvalue(number, row, column, result_array) {
             number == result_array[column + (j * 9)] ||
             number == result_array[get_index]
         ) {
-            return true;
+            return false;
         }
+        return true;
     }
 }
 
@@ -37,33 +38,31 @@ function getValue(index, result_array) {
     }
 
     // If that index already occupies a value then no need to find number for that index
-    else if (result_array[index] != 0) {
+    else if (result_array[index]) {
         // Find value for next index
         return getValue(index + 1, result_array);
     }
 
+
     for (var i = 0; i < 9; i++) {
         // get the row number (i.e) for every for loop, row will be same. Math.floor will maintian it same
         // example: 0 / 9; 1 / 9; 2 / 9
-        const rowNumber = (Math.floor(i / 9));
+        const rowNumber = (Math.floor(index / 9));
 
         // get the column number (i.e) for every for loop, column will be incremented by 1
         // example: 0 % 9; 1 % 9
-        const columnNumber = (Math.floor(i % 9));
+        const columnNumber = (Math.floor(index % 9));
 
-        if (checkvalue(index, rowNumber, columnNumber, result_array)) {
+        if (checkvalue(i, rowNumber, columnNumber, result_array)) {
             result_array[index] = i;
-            if (getValue(index + 1, result_array)) {
-                return true;
+            if (getValue(index + 1, result_array).success) {
+                return { success: true, result: result_array };
             }
 
         }
     }
     result_array[index] = 0;
-    return false;
-
-
-    //  return result_array;
+    return { success: false, result: result_array };
 
 }
 
