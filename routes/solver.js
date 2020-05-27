@@ -56,7 +56,6 @@ function getValue(index, result_array) {
 
         if (checkvalue(i, rowNumber, columnNumber, result_array)) {
             result_array[index] = i;
-            console.log(getValue(index + 1, result_array).success);
             if (getValue(index + 1, result_array).success) {
                 return { success: true, result: result_array };
             }
@@ -70,14 +69,19 @@ function getValue(index, result_array) {
 
 
 function execute(puzzle) {
+    const message = 'Invalid sudoku';
     if (puzzle.length !== 81) {
-        return 'Invalid sudoku'
+        return message;
     }
 
     const result = getValue(0, puzzle);
-    console.log(result);
+    if (result.success) {
+        return result.result;
+    }
+    else {
+        return message;
+    }
 }
-
 
 
 module.exports.execute = execute;
