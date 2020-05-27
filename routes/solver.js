@@ -20,8 +20,9 @@ function checkvalue(number, row, column, result_array) {
         ) {
             return false;
         }
-        return true;
     }
+
+    return true;
 }
 
 
